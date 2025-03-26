@@ -10,10 +10,8 @@ async function handleRequest(request) {
     return new Response('Missing url parameter', { status: 400 })
   }
 
-  // URL 编码，确保中文字符正确传递
-  const encodedImageUrl = encodeURIComponent(imageUrl)
-
-  // 设置请求头
+  // 不进行额外的 URL 编码，直接使用传递的 imageUrl
+  // 之前的代码是错误的：const encodedImageUrl = encodeURIComponent(imageUrl)
   const headers = new Headers({
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
     'Referer': new URL(imageUrl).origin,
@@ -23,8 +21,8 @@ async function handleRequest(request) {
   })
 
   try {
-    // 发起请求，传递正确的 URL 编码
-    const response = await fetch(encodedImageUrl, { headers: headers })
+    // 使用原始的 imageUrl 而不是编码后的 URL
+    const response = await fetch(imageUrl, { headers: headers })
 
     // 记录响应状态，帮助调试
     console.log(`Fetched image with status: ${response.status}`)
