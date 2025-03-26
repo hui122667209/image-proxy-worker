@@ -1,3 +1,7 @@
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
 async function handleRequest(request) {
   const url = new URL(request.url)
   const imageUrl = url.searchParams.get('url')
@@ -15,10 +19,7 @@ async function handleRequest(request) {
   })
 
   try {
-    console.log(`Fetching image from: ${imageUrl}`); // 调试：输出URL
     const response = await fetch(imageUrl, { headers: headers })
-    
-    console.log(`Response status: ${response.status}`); // 调试：输出状态码
 
     if (!response.ok) {
       return new Response('Error fetching image', { status: 500 })
@@ -33,7 +34,6 @@ async function handleRequest(request) {
       headers: newHeaders
     })
   } catch (e) {
-    console.log(`Error: ${e.message}`); // 调试：输出错误信息
     return new Response('Error fetching image: ' + e.message, { status: 500 })
   }
 }
