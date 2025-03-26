@@ -1,9 +1,7 @@
 name = "image-proxy-worker"
-type = "javascript"
-account_id = "hui122667209@gmail.com"
-workers_dev = true
-route = ""
-zone_id = ""
+compatibility_date = "2025-03-26"
+main = "src/index.js"
+
 
 [build]
 command = ""
