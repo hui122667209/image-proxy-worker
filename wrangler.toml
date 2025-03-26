@@ -1,0 +1,11 @@
+name = "image-proxy-worker"
+type = "javascript"
+account_id = "hui122667209@gmail.com"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[build]
+command = ""
+[build.upload]
+format = "service-worker"
