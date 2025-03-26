@@ -12,13 +12,18 @@ async function handleRequest(request) {
 
   const headers = new Headers({
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-    'Referer': new URL(imageUrl).origin
+    'Referer': new URL(imageUrl).origin,
+    'Accept': 'image/webp,image/apng,image/*,*/*;q=0.8',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Connection': 'keep-alive'
   })
 
   try {
-    const response = await fetch(imageUrl, {
-      headers: headers
-    })
+    const response = await fetch(imageUrl, { headers: headers })
+
+    if (!response.ok) {
+      return new Response('Error fetching image', { status: 500 })
+    }
 
     const newHeaders = new Headers(response.headers)
     newHeaders.set('Access-Control-Allow-Origin', '*')
